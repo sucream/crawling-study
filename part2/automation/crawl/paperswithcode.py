@@ -45,3 +45,5 @@ def get_paper_list():
 
             if last_paper_title == paper_list.locator('h1 > a').first.text_content():
                 break
+
+        browser.close()
