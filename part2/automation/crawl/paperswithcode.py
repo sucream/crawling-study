@@ -23,6 +23,8 @@ def get_paper_list():
                 idx += 1
             idx += paper_cnt
 
+            now_page_height = page.evaluate('() => document.body.scrollHeight')
+
             for i in range(paper_cnt):
                 paper = paper_list.nth(i)
                 paper.highlight()
@@ -41,9 +43,16 @@ def get_paper_list():
             # 향후 이벤트로 변경해 보기
             page.wait_for_timeout(3000)
 
-            paper_list = page.locator('div.paper-card').last
+            after_scroll_page_height = page.evaluate(
+                '() => document.body.scrollHeight')
 
-            if last_paper_title == paper_list.locator('h1 > a').first.text_content():
+            # 스크롤이 더 이상 내려가지 않으면 종료
+            if now_page_height == after_scroll_page_height:
                 break
+
+            # paper_list = page.locator('div.paper-card').last
+
+            # if last_paper_title == paper_list.locator('h1 > a').first.text_content():
+            #     break
 
         browser.close()

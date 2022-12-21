@@ -1,3 +1,5 @@
+from urllib.request import urlretrieve
+
 from playwright.sync_api import sync_playwright, PlaywrightContextManager, Browser, Page, Locator
 
 
@@ -15,16 +17,14 @@ def run(playwright: PlaywrightContextManager, keyword: str, max_num: int) -> Non
     page.reload()
     page.wait_for_load_state("networkidle")
 
-    idx = 0
-
+    pic_idx = 0
+    all_idx = 0
     while True:
-        data_list: Locator = get_image_locators(page)
+        data_list: Locator = get_image_locators(page, all_idx)
         cnt = data_list.count()
 
-        for i in range(idx, cnt):
-            idx += 1
-            if i == max_num:
-                break
+        for i in range(all_idx, cnt):
+            all_idx += 1
 
             loc: Locator = data_list.nth(i)
             img: Locator = loc.locator('a.wXeWr.islib.nfEiy')
@@ -36,22 +36,44 @@ def run(playwright: PlaywrightContextManager, keyword: str, max_num: int) -> Non
                 link = img_src.get_attribute('src', timeout=1000)
             except:
                 continue
+            else:
+                pic_idx += 1
 
-            print(i)
-            print(link)
+            # 이미지 다운로드
+            try:
+                urlretrieve(link, f'./images/{keyword}_{pic_idx}.jpg', )
+            except Exception as e:
+                print(e)
+                pic_idx -= 1
+            else:
+                print(pic_idx)
+                print(link)
 
-        if idx == max_num:
+            if pic_idx == max_num:
+                break
+        
+        if pic_idx == max_num:
             break
 
-        gen_new_images(page)
+        try:
+            gen_new_images(page)
+        except Exception as e:
+            print(e)
+            break
 
     browser.close()
 
 
 def gen_new_images(page: Page) -> None:
+    now_page_height = page.evaluate('() => document.body.scrollHeight')
     page.evaluate('() => window.scrollTo(0, document.body.scrollHeight)')
     page.wait_for_load_state("networkidle")
+    page.wait_for_timeout(1000)
+    after_scroll_page_height = page.evaluate('() => document.body.scrollHeight')
+
+    if now_page_height == after_scroll_page_height:
+        raise Exception('더 이상 이미지를 불러올 수 없습니다.')
 
 
-def get_image_locators(page: Page) -> Locator:
-    return page.locator('div.islrc > div.isv-r.PNCib.MSM1fd.BUooTd')
+def get_image_locators(page: Page, idx: int) -> Locator:
+    return page.locator(f'div.islrc > div.isv-r.PNCib.MSM1fd.BUooTd:nth-child(n+{idx})')

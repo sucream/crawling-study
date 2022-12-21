@@ -7,7 +7,7 @@ def paper():
 
 
 def google_images():
-    get_google_images('cat', 100)
+    get_google_images('dog', 100)
 
 
 if __name__ == "__main__":
