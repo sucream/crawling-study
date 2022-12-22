@@ -20,3 +20,7 @@
 ## [Part4. webview와 pyinstaller 활용하기](part4/README.md)
 
 - `pywebview`와 `pyinstaller`를 이용하여 GUI 프로그램을 만드는 방법을 익힙니다.
+
+## [Etc. Playwright tutorial](playwright_tutorial/README.md)
+
+- playwright에 대한 이해와 사용법을 익힙니다.
