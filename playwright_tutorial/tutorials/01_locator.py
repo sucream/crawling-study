@@ -50,3 +50,7 @@ def run():
             print(title)
 
         browser.close()  # 사용 후에는 브라우저를 종료해 줍니다.
+
+
+if __name__ == '__main__':
+    run()
