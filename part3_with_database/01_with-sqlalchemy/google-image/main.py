@@ -28,6 +28,8 @@ def add_image():
 
 def list_image():
     print("[ 이미지 목록 ]")
+    for keyword in get_keyword_list():
+        print(keyword.id, keyword.keyword)
     print("키워드 입력: ", end="")
     keyword = input()
 
@@ -62,6 +64,8 @@ def print_menu():
 
 def main():
     init()
+
+    app = Application()
 
     while True:
         menu = print_menu()
