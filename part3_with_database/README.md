@@ -1,5 +1,12 @@
 ## [Part3. DB 활용하기]
 
-### [SQLAlchemy 익히기](01_with-sqlalchemy)
+### 1. [SQLAlchemy 익히기](./01_with-sqlalchemy/)
 
-### [Pydantic 적용하기](02_with-pydantic)
+- 두가지 프로젝트를 통해 파이썬 크롤링과 데이터베이스 활용을 익힙니다.
+- 파이썬에서 자주 사용하는 ORM인 SQLAlchemy를 익힙니다.
+- CLI 프로그램을 만들어 데이터베이스에 저장된 데이터를 생성/조회/수정/삭제할 수 있습니다.
+
+### 2. [Pydantic 적용하기](./02_with-pydantic/)
+
+- 기존 프로젝트에 Pydantic을 적용하여 데이터 검증 및 유연한 데이터 처리를 할 수 있습니다.
+- 환경이 바뀌어도 코드를 수정하지 않고 데이터를 처리할 수 있는 방법에 대해 알아봅니다.
