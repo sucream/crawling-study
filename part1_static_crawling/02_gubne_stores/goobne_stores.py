@@ -68,3 +68,10 @@ def get_store_list(sido: str='02', gubun: str='') -> List[Dict[str, str]]:
         })
 
     return result
+
+
+if __name__ == "__main__":
+    store_list = get_store_list()
+
+    for store in store_list:
+        print(store)

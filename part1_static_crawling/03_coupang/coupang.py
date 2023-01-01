@@ -71,3 +71,10 @@ def get_product_list(search_keyword: str=None) -> List[Dict[str, str]]:
         })
 
     return result
+
+
+if __name__ == '__main__':
+    product_list = get_product_list('아이폰14')
+
+    for product in product_list:
+        print(product)

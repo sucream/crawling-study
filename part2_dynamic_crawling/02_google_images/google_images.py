@@ -1,4 +1,5 @@
 from urllib.request import urlretrieve
+import os
 
 from playwright.sync_api import sync_playwright, PlaywrightContextManager, Browser, Page, Locator
 
@@ -39,6 +40,9 @@ def run(playwright: PlaywrightContextManager, keyword: str, max_num: int) -> Non
             else:
                 pic_idx += 1
 
+            # 이미지 디렉토리 생성
+            os.makedirs(f'./images', exist_ok=True)
+
             # 이미지 다운로드
             try:
                 urlretrieve(link, f'./images/{keyword}_{pic_idx}.jpg', )
@@ -77,3 +81,7 @@ def gen_new_images(page: Page) -> None:
 
 def get_image_locators(page: Page, idx: int) -> Locator:
     return page.locator(f'div.islrc > div.isv-r.PNCib.MSM1fd.BUooTd:nth-child(n+{idx})')
+
+
+if __name__ == "__main__":
+    get_google_images('dog', 10)

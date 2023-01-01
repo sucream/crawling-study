@@ -1,5 +1,6 @@
 from typing import List, Dict
 from datetime import datetime
+import time
 
 import requests
 from bs4 import BeautifulSoup
@@ -100,3 +101,11 @@ def get_news(url: str) -> Dict[str, str]:
         'title': title,
         'content': contents
     }
+
+
+if __name__ == '__main__':
+    news_list = get_news_list('20200501')
+
+    for news in news_list:
+        print(get_news(news['url']))
+        time.sleep(0.5)
