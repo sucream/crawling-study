@@ -14,15 +14,20 @@ with sync_playwright() as p:
     # 브라우저 실행 시 채널을 chrome로 설정하여 별도의 실행환경을 설치하지 않아도 됨
     # headless=False로 설정하여 브라우저를 실행하고, slow_mo=100으로 설정
     browser = p.chromium.launch(headless=False, channel="chrome", slow_mo=100)
+
+    # 새로운 컨텍스트를 생성하고, tracing을 시작
     context = browser.new_context()
+    context.tracing.start(screenshots=True, snapshots=True, sources=True)
+
+    # 새로운 페이지를 생성하고, 네이버 메인 페이지로 이동
     page = context.new_page()
     page.goto('https://www.naver.com')
 
     # 로그인 과정
-    page.click('#account > a')
-    page.fill('input[name=id]', USER_ID)
-    page.fill('input[name=pw]', USER_PW)
-    page.click('button.btn_login')
+    page.click('#account > a')  # 로그인 페이지로 이동하는 링크를 클릭
+    page.fill('input[name=id]', USER_ID)  # 아이디 입력
+    page.fill('input[name=pw]', USER_PW)  # 비밀번호 입력
+    page.click('button.btn_login')  # 로그인 버튼 클릭
 
     # 메일 페이지로 이동
     page.goto('https://mail.naver.com')
@@ -55,5 +60,9 @@ with sync_playwright() as p:
         #sender_text는 자체가 문자열, title은 locator이기 때문에 text_content()를 이용하여 문자열을 가져옴
         print(f'{sender_text}: {title.text_content()}')
     
+    # 기록 저장
+    # playwright show-trace trace.zip 명령어를 통해 기록을 확인할 수 있음
+    context.tracing.stop(path = "trace.zip")
+
     # 브라우저 종료
     browser.close()
