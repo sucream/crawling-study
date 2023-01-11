@@ -32,7 +32,7 @@ def get_news_list(sid1: str, sid2: str, date: str, page: int = 1) -> List[Dict[s
         [
             {
                 'title': '제목',
-                'writing': '신문사',
+                'publisher': '신문사',
                 'url': '링크',
                 'date': '날짜',
             },
@@ -60,11 +60,11 @@ def get_news_list(sid1: str, sid2: str, date: str, page: int = 1) -> List[Dict[s
 
     for news in news_list:
         title = news.select_one('dl > dt:not(.photo) > a')
-        writing = news.select_one('dl > dd > span.writing')
+        publisher = news.select_one('dl > dd > span.writing')
 
         result.append({
             'title': title.text.strip(),
-            'writing': writing.text.strip(),
+            'publisher': publisher.text.strip(),
             'url': title['href'],
             'date': date,
         })
@@ -87,7 +87,7 @@ def get_news(url: str) -> Dict[str, str]:
         뉴스
         {
             'title': '제목',
-            'writing': '신문사',
+            'publisher': '신문사',
             'content': '내용'
         }
     """

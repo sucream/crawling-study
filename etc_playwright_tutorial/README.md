@@ -1,6 +1,6 @@
 # Playwright Tutorial
 
-![playwright](img/playwright.jpg)
+![playwright](../img/playwright.jpg)
 
 - 기본적인 Playwright 사용법을 익히기 위한 튜토리얼입니다.
 - 최대한 적은 기능을 사용하려 했습니다.
@@ -123,7 +123,7 @@
 
 ## 5. Playwright codegen 기능 이용해 보기([관련 링크](https://playwright.dev/python/docs/codegen-intro))
 
-![codegen](./img/codegen.gif)
+![codegen](../img/codegen.gif)
 
 - `codegen`은 playwright의 확장 기능이기 때문에 `playwright install`을 해야 사용할 수 있음
 - playwright codegen 기능을 이용하면 브라우저에서 수행한 작업을 레코딩하여 파이썬 코드로 변환해줌

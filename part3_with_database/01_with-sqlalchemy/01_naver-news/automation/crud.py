@@ -8,7 +8,7 @@ from sqlalchemy import select, or_, and_
 init()
 
 # Category
-def get_all_category_list():
+def get_all_category_list() -> List[Category]:
     """
     ### 모든 카테고리 목록을 가져옵니다.
     """
